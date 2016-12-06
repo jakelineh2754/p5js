@@ -1,71 +1,45 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-
 <head>
-    <title>mouseDragged and mouseMoved</title>
+    <title>p5js Template</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
     <script>
-        function setup() {
-            createCanvas(500, 500);
+      function setup() {
+        createCanvas(1500,1500);t //the canvas size
+      }
+      
+
+        function draw()  {
         }
-
-
-        function draw() {
-            random(255,255,0);//this is the random colors that come out when you move the mouse
-            ellipse(275,320,100,100);//this is the body 
-            ellipse(200,300,50,50);
-            ellipse(350,300,50,50);
-            line(275,368,275,600);//this is the line that creates the flower
-            ellipse(320,260,50,50)
-            ellipse(270,245,50,50)
-            ellipse(225,260,50,50)
-            ellipse(208,350,50,50)
-            ellipse(345,350,50,50)
-            ellipse(310,384,50,50)
-            ellipse(245,385,50,50)
-            
-
-
+        var fillValue
+        var fillValue1     
+        var fillValue2
+        
+        //thee are the color variables
+        
+        function mouseDragged(){
+         fill(fillValue,fillValue1,fillValue2)
+          rect(mouseX+50, mouseY, 100, 100)
+          rect(mouseX-50, mouseY, 100, 100)
+          rect(mouseX, mouseY+50, 100, 100)
+          rect(mouseX, mouseY-50, 100, 100)
+          
+          //these create the flower shaped circles
         }
-
-
-        function mouseDragged() {
-
-
-            stroke(random(255), (255), random(255));
-            line(0, 0, mouseX, mouseY);
-            line(0, height, mouseX, mouseY);
-            line(width, 0, mouseX, mouseY);
-            line(width, height, mouseX, mouseY);
-
-
-
-
-
-
+        function keyPressed(){
+          fillValue=random(30,200)
+          fillValue1=random(30,200)
+          fillValue2=random(30,200)
+          //this gives color to the shape when anything is pressed
+        
+          
         }
-
-
-        function mouseMoved() {
-
-
-            var diameter;
-
-
-            diameter = 10;
-            diameter = random(20); 
-            fill((255), random(255), random(255));
-            ellipse(mouseX + random(-20, 20), mouseY + random(-20, 20), diameter, diameter)
-        }
-    </script>
-</head>
-
-
-<body>
+        
+    <body>
     <div id="code" class="container-fluid">
-        <script src="https://gist-it.appspot.com/github/jakelineh2754/p5js/blob/gh-pages/interactions-project.html?footer=0"></script>
-    </div>
+    <script src="https://gist-it.appspot.com/github/jakelineh2754/p5js/blob/gh-pages/project-rect.html?footer=0"></script>
+    </div
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -75,9 +49,5 @@
         });
     </script>
 </body>
-
-
-
-</html>
 
 
