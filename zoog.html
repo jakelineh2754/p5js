@@ -2,45 +2,85 @@
 <html>
 
 <head>
-    <title>p5js Template</title>
+    <title>Pong</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
     <script>
-      function setup() {
-        createCanvas(1500,1500); //the canvas size
-      }
-      
+        
+        var ballX; // x-location of the ball
+        var ballY; // y-location of the ball
+        var ballSpeedX = 5; // speed of the ball horizontally
+        var ballSpeedY = 5; // speed of the ball vertically
+        var paddleHeight = 30;
+        var paddleWidth = 200;
+        
+        function setup() {
+            createCanvas(400, 300); // canvas size
+            noCursor(); // hides the mouse
+            ballX = width / 2;  // start the ball in the
+            ballY = height / 2; // middle of the canvas
+        }
 
-        function draw()  {
+         function draw() {
+            background(128); // resets the background
+            moveBall(); // ball moves in X and Y directions
+            checkCollide(); // checks for collision with walls or paddle
+            drawPaddle(); // re-draws paddle
+            drawBall(); // re-draws ball 
         }
-        var fillValue
-        var fillValue1     
-        var fillValue2
-        
-        //thee are the color variables
-        
-        function mouseDragged(){
-         fill(fillValue,fillValue1,fillValue2)
-          rect(mouseX+50, mouseY, 100, 100)
-          rect(mouseX-50, mouseY, 100, 100)
-          rect(mouseX, mouseY+50, 100, 100)
-          rect(mouseX, mouseY-50, 100, 100)
+
+        function mousePressed() { 
+           //the ball speed is 5 
+            ballSpeedX = 5; 
+            ballSpeedY = 5;
+        }
+
+         function moveBall() {
+            ballX = ballX + ballSpeedX; // updates ball location horizontally
+            ballY = ballY + ballSpeedY; // updates ball location vertically
+
+            
+            console.log("ballSpeedX: " + ballSpeedX + ", ballSpeedY: " + ballSpeedY);
+        }
+
+        function checkCollide() {
+            
+            if (ballX < 0 || ballX > width) { 
+                ballSpeedX = ballSpeedX * -1; 
+            } 
+            
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1; // switch Y direction
+            }
+            if (ballY > height - paddleHeight) { // ball is past 'goal line' vertically
+                if (ballX > mouseX && ballX < mouseX + paddleWidth) { 
+                    paddleWidth = constrain(paddleWidth, 20, 200)
+                    paddleWidth -= 10; //the paddle width decreases by 10
+                    ballSpeedY = ballSpeedY * -1; // switch Y direction
+                }
+                else { 
+                    text("GAME OVER!", width / 2, height / 2);
+                    noLoop(); // stop the draw loop
+                }
+            }
+        }
+
+        function drawBall() {
+            noStroke(); // no outline
+            ellipse(ballX, ballY, 20, 20); // draw a small ball at the current (x,y) location
+        }
+
+        function drawPaddle() {
+            strokeWeight(4);// border thickness of 4px
           
-          //these create the flower shaped circles
+         
+            rect(mouseX, height - paddleHeight - 4, paddleWidth, paddleHeight);
         }
-        function keyPressed(){
-          fillValue=random(30,200)
-          fillValue1=random(30,200)
-          fillValue2=random(30,200)
-          //this gives color to the shape when anything is pressed
-        
-          
-        }
-        
-    <body>
+    </script>
+</head>
+<body>
     <div id="code" class="container-fluid">
-    <script src="https://gist-it.appspot.com/github/jakelineh2754/p5js/blob/gh-pages/project-rect.html?footer=0"></script>
-    </div
-
+        <script src="https://gist-it.appspot.com/github/jakelineh2754/p5js/blob/gh-pages/pong-game.html?footer=0"></script>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
@@ -49,3 +89,10 @@
         });
     </script>
 </body>
+
+<form><input TYPE="button" onClick="history.
+    go(0)" value="Reset"></form>
+
+
+
+</html>
