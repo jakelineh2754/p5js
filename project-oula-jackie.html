@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Pong</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.13/p5.js"></script>
+    <script>
+        
+        var ballX; // x-location of the ball
+        var ballY; // y-location of the ball
+        var ballSpeedX = 5; // speed of the ball horizontally
+        var ballSpeedY = 5; // speed of the ball vertically
+        var paddleHeight = 30; //paddle settings 
+        var paddleWidth = 200; //psddle settings
+        var points = 0; //the score starts at 0
+        var diameter;
+        
+        
+        function setup() {
+            createCanvas(400, 300); // canvas size
+            noCursor(); // hides the mouse
+            ballX = width / 2;  // start the ball in the
+            ballY = height / 2; // middle of the canvas
+            diameter = 500;
+           
+        }
+
+         function draw() {
+            background(204,255,229); // resets the background
+            textSize(30);
+            fill(0,0,0)
+            text("Score: " + points,15,25);
+            moveBall(); // ball moves in X and Y directions
+            checkCollide(); // checks for collision with walls or paddle
+            fill(229,204,255)
+            drawPaddle(); // re-draws paddle
+            fill(255,204,229)
+            drawBall(); // re-draws ball 
+        }
+
+        function mousePressed() { 
+           //the ball speed is 5 
+           ballSpeedX = 5; 
+           ballSpeedY = 5;
+        }
+
+         function moveBall() {
+            ballX = ballX + ballSpeedX; // updates ball location horizontally
+            ballY = ballY + ballSpeedY; // updates ball location vertically
+            
+
+            
+            console.log("ballSpeedX: " + ballSpeedX + ", ballSpeedY: " + ballSpeedY); 
+        }
+
+        function checkCollide() {
+            
+            if (ballX < 0 || ballX > width) { 
+                ballSpeedX = ballSpeedX * -1; 
+            } 
+            
+            if (ballY < 0) {
+                ballSpeedY = ballSpeedY * -1; // switch Y direction
+            }
+            if (ballY > height - paddleHeight) { // ball is past 'goal line' vertically
+                if (ballX > mouseX && ballX < mouseX + paddleWidth) { 
+                    paddleWidth = constrain(paddleWidth, 20, 200)
+                    paddleWidth -= 10; //the paddle width decreases by 10
+                    ballSpeedY = ballSpeedY * -1; // switch Y direction
+                    points += 1 //when the ball hits the pattle one ball is added
+                }
+                else { 
+                    fill(0,0,0)
+                    text("GAME OVER!", width / 5, height / 2);
+                    noLoop(); // stop the draw loop
+                }
+            }
+        }
+
+        function drawBall() {
+            noStroke(); // no outline
+            ellipse(ballX, ballY, 20, 20); // draw a small ball at the current (x,y) location
+        }
+
+        function drawPaddle() {
+            strokeWeight(4);// border thickness of 4px
+            rect(mouseX, height - paddleHeight - 4, paddleWidth, paddleHeight);
+        }
+        
+        function mouseDragged() { 
+            diameter--;
+        }
+
+   <body>
+    <div id="code" class="container-fluid">
+        <script src="https://gist-it.appspot.com/github/jakelineh2754/p5js/blob/gh-pages/lastproject.html?footer=0"></script>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(window).bind("load", function() {
+            $('#code').before($('#defaultCanvas').remove());
+        });
+    </script>
+</body>
